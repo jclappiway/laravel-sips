@@ -1,0 +1,26 @@
+<?php
+
+return array(
+    'id'                     => env("SIPS_MERCHANT_ID"),
+    'country'                => env("SIPS_COUNTRY", 'fr'),
+    'currency_code'          => env("SIPS_CURRENCY_CODE", '978'),
+    'payment_means'          => env("SIPS_PAYMENT_MEANS", 'CB,2,VISA,2,MASTERCARD,2'),
+    'language'               => env("SIPS_LANGUAGE", 'FR'),
+    'pathfile'               => env("SIPS_PATHFILE", '/home/repertoire/pathfile'),
+    'header_flag'            => env("SIPS_HEADER_FLAG", 'no'),
+    'capture_day'            => env('SIPS_CAPTURE_DAY'),
+    'capture_mode'           => env('SIPS_CAPTURE_MODE'),
+    'bgcolor'                => env('SIPS_BGCOLOR'),
+    'block_align'            => env('SIPS_BLOCK_ALIGN'),
+    'block_order'            => env('SIPS_BLOCK_ORDER'),
+    'textcolor'              => env('SIPS_TEXTCOLOR'),
+    'receipt_complement'     => env('SIPS_RECEIPT_COMPLEMENT'),
+    'caddie'                 => env('SIPS_CADDIE'),
+    'data'                   => env('SIPS_DATA'),
+    'return_context'         => env('SIPS_RETURN_CONTEXT'),
+    'target'                 => env('SIPS_TARGET'),
+    'path_bin'               => env('SIPS_PATH_BIN', '/home/repertoire/bin/request'),
+    'normal_return_url'      => env('SIPS_NORMAL_RETURN_URL'),
+    'cancel_return_url'      => env('SIPS_CANCEL_RETURN_URL'),
+    'automatic_response_url' => env('SIPS_AUTORESPONSE_URL'),
+);
