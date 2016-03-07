@@ -16,7 +16,6 @@ class OrderObserver
 
     public function saving($model)
     {
-        die('var_dump');
         $previous_status = $model->getOriginal('transaction_id');
 
         if ($previous_status == null && $model->transaction_id != null) {
