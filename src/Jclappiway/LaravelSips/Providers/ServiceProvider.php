@@ -18,6 +18,12 @@ class ServiceProvider extends BaseServiceProvider
         );
 
         $this->app->bindIf(
+            'LaravelSipsTransactionObserver', function () {
+                return new \Jclappiway\LaravelSips\Observers\TransactionObserver;
+            }
+        );
+
+        $this->app->bindIf(
             'LaravelSipsNotifier', function () {
                 return new \Jclappiway\LaravelSips\Models\Notifier;
             }
