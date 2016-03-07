@@ -87,9 +87,9 @@ class Order extends Model
         $form  = $resultArray[3];
 
         if (($code == "") && ($error == "")) {
-            throw new Exception("request bin not found", $path_bin);
+            throw new Exception("request bin not found : $path_bin");
         } else if ($code != 0) {
-            throw new Exception("API request error", $error);
+            throw new Exception("API request error : $error");
         } else {
             return $form;
         }
