@@ -13,10 +13,21 @@ class Notifier extends Model
 
         $user = $order->customer;
 
-        Mail::send('jclappiway.laravel-sips::emails.payment', ['user' => $user, 'order' => $order], function ($m) use ($user, $order) {
-            $m->from('hello@app.com', 'Your Application');
+        Mail::send('jclappiway.laravel-sips::emails.payment', [
+            'user' => $user, 'order' => $order,
+        ], function ($m) use ($user, $order) {
 
-            $m->to($user->email, $user->lastname . ' ' . $user->firstname)->subject(trans('jclappiway.laravel-sips::sips.mail_subject'));
+            $m->from(
+                config('sips.email_address_from'),
+                config('sips.email_name_from')
+            );
+
+            $m->to(
+                $user->email,
+                $user->lastname . ' ' . $user->firstname
+            )->subject(
+                trans('jclappiway.laravel-sips::sips.mail_subject')
+            );
         });
     }
 }

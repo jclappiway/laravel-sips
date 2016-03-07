@@ -19,8 +19,12 @@ return array(
     'data'                   => env('SIPS_DATA'),
     'return_context'         => env('SIPS_RETURN_CONTEXT'),
     'target'                 => env('SIPS_TARGET'),
-    'path_bin'               => env('SIPS_PATH_BIN', '/home/repertoire/bin/request'),
+    'path_bin_request'       => env('SIPS_PATH_BIN_REQUEST', '/home/repertoire/bin/request'),
+    'path_bin_response'      => env('SIPS_PATH_BIN_RESPONSE', '/home/repertoire/bin/response'),
     'normal_return_url'      => env('SIPS_NORMAL_RETURN_URL'),
     'cancel_return_url'      => env('SIPS_CANCEL_RETURN_URL'),
     'automatic_response_url' => env('SIPS_AUTORESPONSE_URL'),
+    'styles'                 => env('SIPS_STYLESHEET'),
+    'email_address_from'     => env('EMAIL_ADDRESS_FROM'),
+    'email_name_from'        => env('EMAIL_NAME_FROM'),
 );

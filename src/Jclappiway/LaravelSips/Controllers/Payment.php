@@ -61,9 +61,8 @@ class Payment extends BaseController
     {
         try {
             $datas = Order::generateResponse($request);
-
             $order = Order::find($datas['order_id']);
-            $order->save();
+
             $this->datas['order'] = $order;
             if ($order->transaction_id === null) {
                 $order->createTransaction($datas);
@@ -72,7 +71,6 @@ class Payment extends BaseController
                 return view('jclappiway.laravel-sips::success', $this->datas);
             }
         } catch (Exception $e) {
-            dd($e);
             return view('jclappiway.laravel-sips::error', $this->datas);
         }
     }

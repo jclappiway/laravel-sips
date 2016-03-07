@@ -6,8 +6,6 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-// use Jclappiway\LaravelSips\Observers\OrderObserver;
-
 class Order extends Model
 {
 
@@ -36,8 +34,7 @@ class Order extends Model
     public function createTransaction(array $datas)
     {
         $datas['id'] = $datas['transaction_id'];
-        $transaction = new Transaction($datas);
-        $transaction->save();
+        $transaction = Transaction::create($datas);
         $this->transaction()->associate($transaction);
         $this->save();
     }
