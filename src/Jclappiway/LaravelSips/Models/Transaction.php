@@ -2,14 +2,21 @@
 
 namespace Jclappiway\LaravelSips\Models;
 
+use App;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
 
-    public function orders()
+    public function order()
     {
-        return $this->belongsToMany('\Jclappiway\LaravelSips\Models\Order');
+        return $this->hasOne('\Jclappiway\LaravelSips\Models\Order');
+    }
+
+    public static function boot()
+    {
+        $observer = App::make('LaravelSipsTransactionObserver');
+        Transaction::observe(new $observer);
     }
 
     protected $fillable = [

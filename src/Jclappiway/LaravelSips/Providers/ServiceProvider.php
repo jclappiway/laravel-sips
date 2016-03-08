@@ -29,8 +29,6 @@ class ServiceProvider extends BaseServiceProvider
             }
         );
 
-        // dd(\App::getBindings());
-
     }
 
     /**

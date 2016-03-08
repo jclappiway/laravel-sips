@@ -7,10 +7,9 @@ use Mail;
 
 class Notifier extends Model
 {
-    public function payment($order_id)
-    {
-        $order = Order::findOrFail($order_id);
 
+    public function payment(Order $order)
+    {
         $user = $order->customer;
 
         Mail::send('jclappiway.laravel-sips::emails.payment', [

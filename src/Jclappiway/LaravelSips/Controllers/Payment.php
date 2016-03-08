@@ -45,7 +45,8 @@ class Payment extends BaseController
         $order = new Order($inputs);
         $order->customer()->associate($user);
         if ($order->save()) {
-            $this->datas['form'] = $order->generatePaymentForm();
+            $this->datas['form']   = $order->generatePaymentForm();
+            $this->datas['amount'] = $order->amount;
             return view('jclappiway.laravel-sips::payment', $this->datas);
         }
 
