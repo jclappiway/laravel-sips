@@ -28,6 +28,7 @@ class Payment extends BaseController
             'address'   => 'required|max:255',
             'city'      => 'required|max:255',
             'zipcode'   => 'required|max:255',
+            'birthday'  => 'required|date_format:d/m/Y',
             'country'   => 'required|max:255',
             'amount'    => 'required',
             'recurring' => 'required',
