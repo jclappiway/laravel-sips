@@ -2,12 +2,12 @@
 
 namespace Jclappiway\LaravelSips\Controllers;
 
+use App;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Jclappiway\LaravelSips\Models\Customer;
 use Jclappiway\LaravelSips\Models\Order;
-use Validator;
 
 class Payment extends BaseController
 {
@@ -18,28 +18,18 @@ class Payment extends BaseController
 
     public function payment(Request $request)
     {
-        $inputs = $request->all();
-        $order  = new Order($inputs);
+        $inputs   = $request->all();
+        $order    = new Order($inputs);
+        $customer = App::make('LaravelSipsCustomer');
 
-        $validator = Validator::make($inputs, [
-            'firstname' => 'required|max:255',
-            'lastname'  => 'required|max:255',
-            'email'     => 'required|email|max:255',
-            'address'   => 'required|max:255',
-            'city'      => 'required|max:255',
-            'zipcode'   => 'required|max:255',
-            'country'   => 'required|max:255',
-            'amount'    => 'required',
-            'recurring' => 'required',
-            'cgu'       => 'accepted',
-        ]);
+        $valid = $customer::validate($inputs);
 
-        if ($validator->fails()) {
+        if (!$valid) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $inputs['ip_address'] = $request->getClientIp();
-        $user                 = Customer::firstOrCreate(array('email' => $inputs['email']));
+        $user                 = $customer::firstOrCreate(array('email' => $inputs['email']));
         $user->update($inputs);
 
         $order = new Order($inputs);
@@ -65,12 +55,8 @@ class Payment extends BaseController
             $order = Order::find($datas['order_id']);
 
             $this->datas['order'] = $order;
-            if ($order->transaction_id === null) {
-                $order->createTransaction($datas);
-                return view('jclappiway.laravel-sips::success', $this->datas);
-            } else {
-                return view('jclappiway.laravel-sips::success', $this->datas);
-            }
+
+            return view('jclappiway.laravel-sips::success', $this->datas);
         } catch (Exception $e) {
             return view('jclappiway.laravel-sips::error', $this->datas);
         }
@@ -82,10 +68,13 @@ class Payment extends BaseController
         //so let's do the transaction link if needed
         $datas = Order::generateResponse($request);
 
-        $order                = Order::find($datas['order_id']);
-        $this->datas['order'] = $order;
-        if ($order->transaction_id === null) {
-            $order->createTransaction($datas);
+        if ($datas['response_code'] === "00") {
+            $order = Order::find($datas['order_id']);
+
+            $this->datas['order'] = $order;
+            if ($order->transaction_id === null) {
+                $order->createTransaction($datas);
+            }
         }
     }
 }

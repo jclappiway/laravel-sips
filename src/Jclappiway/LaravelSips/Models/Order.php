@@ -12,7 +12,9 @@ class Order extends Model
     protected $dates = ['created_at'];
     public function customer()
     {
-        return $this->belongsTo('\Jclappiway\LaravelSips\Models\Customer');
+
+        $customer = App::make('LaravelSipsCustomer');
+        return $this->belongsTo($customer);
     }
 
     public function transaction()

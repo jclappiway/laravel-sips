@@ -11,6 +11,13 @@ class ServiceProvider extends BaseServiceProvider
 
     public function register()
     {
+
+        $this->app->bindIf(
+            'LaravelSipsCustomer', function () {
+                return new \Jclappiway\LaravelSips\Models\Customer;
+            }
+        );
+
         $this->app->bindIf(
             'LaravelSipsOrderObserver', function () {
                 return new \Jclappiway\LaravelSips\Observers\OrderObserver;
