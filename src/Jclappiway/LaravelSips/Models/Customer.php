@@ -16,6 +16,7 @@ class Customer extends Model
         'city',
         'zipcode',
         'country',
+        'birthday',
         'phone',
         'ip_address',
         'cgu',
