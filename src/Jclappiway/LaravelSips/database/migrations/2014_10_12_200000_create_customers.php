@@ -22,7 +22,7 @@ class CreateCustomers extends Migration
             $table->string('zipcode');
             $table->string('country');
             $table->string('phone');
-            $table->boolean('birthday');
+            $table->date('birthday');
             $table->string('ip_address');
             $table->boolean('cgu');
             $table->boolean('newsletter');
