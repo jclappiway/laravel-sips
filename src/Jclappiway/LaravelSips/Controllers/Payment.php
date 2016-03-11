@@ -22,9 +22,9 @@ class Payment extends BaseController
         $order    = new Order($inputs);
         $customer = App::make('LaravelSipsCustomer');
 
-        $valid = $customer::validate($inputs);
+        $validator = $customer->validate($inputs);
 
-        if (!$valid) {
+        if (!$customer->isValid()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -34,9 +34,11 @@ class Payment extends BaseController
 
         $order = new Order($inputs);
         $order->customer()->associate($user);
+
         if ($order->save()) {
             $this->datas['form']   = $order->generatePaymentForm();
             $this->datas['amount'] = $order->amount;
+
             return view('jclappiway.laravel-sips::payment', $this->datas);
         }
 
