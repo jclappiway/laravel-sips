@@ -2,6 +2,7 @@
 
 namespace Jclappiway\LaravelSips\Models;
 
+use App;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -10,9 +11,9 @@ class Order extends Model
 {
 
     protected $dates = ['created_at'];
+
     public function customer()
     {
-
         $customer = App::make('LaravelSipsCustomer');
         return $this->belongsTo($customer);
     }
