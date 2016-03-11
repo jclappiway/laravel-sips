@@ -54,8 +54,13 @@ class Payment extends BaseController
             $datas = Order::generateResponse($request);
             $order = Order::find($datas['order_id']);
 
+            // this is only for development
+            // in production this stuff is always done by autoreponse callback
             $this->datas['order'] = $order;
 
+            // if ($order->transaction_id === null) {
+            //     $order->createTransaction($datas);
+            // }
             return view('jclappiway.laravel-sips::success', $this->datas);
         } catch (Exception $e) {
             return view('jclappiway.laravel-sips::error', $this->datas);
