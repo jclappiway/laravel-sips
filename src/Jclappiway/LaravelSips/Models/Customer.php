@@ -8,6 +8,7 @@ use Validator;
 
 class Customer extends Model
 {
+
     protected $fillable = [
         'firstname',
         'lastname',
@@ -55,6 +56,11 @@ class Customer extends Model
     public function validate($data)
     {
         $this->makeValidator($data);
+        return $this->validator;
+    }
+
+    public function isValid()
+    {
         return $this->validator->passes();
     }
 
